@@ -33,10 +33,10 @@ kind: Service
 metadata:
   name: java-service
 spec:
-  type: NodePort
+  type: ClusterIP
   selector:
     app: java
   ports:
     - port: 80
       targetPort: 8080
-      nodePort: 30005
+      protocol: TCP
