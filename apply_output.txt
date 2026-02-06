@@ -1,0 +1,2 @@
+deployment.apps/java-app unchanged
+service/java-service unchanged
