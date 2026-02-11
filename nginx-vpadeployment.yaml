@@ -1,4 +1,4 @@
-apiVersion: autoscaling/v2
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: vpa-demo-app
@@ -7,19 +7,18 @@ spec:
   selector:
     matchLabels:
       app: vpa-demo
- template:
-   metadata:
-     labels:
-       app: vpa-demo
-spec:
-  containers:
-  - name: app
-    image: nginx
-    resources:
-      requests:
-        cpu: "100m"
-        memory: "256Mi"
-       limits:
-         cpu: "200m"
-         memory: "512Mi"
-    
+  template:
+    metadata:
+      labels:
+        app: vpa-demo
+    spec:
+      containers:
+      - name: app
+        image: nginx
+        resources:
+          requests:
+            cpu: "100m"
+            memory: "256Mi"
+          limits:
+            cpu: "200m"
+            memory: "512Mi"
