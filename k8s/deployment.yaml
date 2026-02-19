@@ -1,0 +1,42 @@
+piVersion: apps/v1
+kind: Deployment
+metadata:
+  name: java-app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: java
+  template:
+    metadata:
+      labels:
+        app: java
+    spec:
+      containers:
+      - name: java-container
+        image: bharathchatakondu/java-app:latest
+        ports:
+        - containerPort: 8080
+        livenessProbe:
+          tcpSocket:          # Changed from httpGet
+            port: 8080
+          initialDelaySeconds: 30
+          periodSeconds: 15
+        readinessProbe:
+          tcpSocket:          # Changed from httpGet
+            port: 8080
+          initialDelaySeconds: 20
+          periodSeconds: 10
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: java-service
+spec:
+  type: ClusterIP
+  selector:
+    app: java
+  ports:
+    - port: 80
+      targetPort: 8080
+      protocol: TCP
